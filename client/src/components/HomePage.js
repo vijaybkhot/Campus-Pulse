@@ -15,7 +15,7 @@ const HomePage = () => {
             <h2 className="section-title">Your Next Steps</h2>
             <div className="card card-container">
               <h3>FIND A ROOMMATE</h3>
-              <Link to="/find-roommate">
+              <Link to="/roommate">
                 <button className="btn-primary card-btn">GO</button>
               </Link>
             </div>
