@@ -5,7 +5,7 @@ const { sign, verify } = pkg;
 import User from "../models/userModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
-import sendEmail from "../utils/email.js";
+import Email from "../utils/email.js";
 
 const signToken = (id) =>
   sign({ id: id }, process.env.JWT_SECRET, {
@@ -58,29 +58,29 @@ export const signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  // Prepare the welcome message
-  const message = `Welcome to Our Community, ${newUser.firstName}!
+  // // Prepare the welcome message
+  // const message = `Welcome to Our Community, ${newUser.firstName}!
 
-  We're thrilled to have you join us. Get ready to explore, connect, and make the most out of our platform.
+  // We're thrilled to have you join us. Get ready to explore, connect, and make the most out of our platform.
 
-  Here are a few tips to help you get started:
-  - Complete your profile to let others know more about you.
-  - Check out the latest events and groups aligned with your interests.
-  - Don’t hesitate to reach out if you need any assistance – we're here to help!
+  // Here are a few tips to help you get started:
+  // - Complete your profile to let others know more about you.
+  // - Check out the latest events and groups aligned with your interests.
+  // - Don’t hesitate to reach out if you need any assistance – we're here to help!
 
-  If you have any questions or feedback, feel free to reply to this email.
+  // If you have any questions or feedback, feel free to reply to this email.
 
-  Once again, welcome aboard! We can't wait to see all the great things you'll accomplish.
+  // Once again, welcome aboard! We can't wait to see all the great things you'll accomplish.
 
-  Warm regards,
-  The Campus-Pulse Team`;
+  // Warm regards,
+  // The Campus-Pulse Team`;
 
-  // Send welcome email
-  await sendEmail({
-    email: newUser.email,
-    subject: "Welcome to Campus-Pulse!",
-    message: message,
-  });
+  // // Send welcome email
+  // await sendEmail({
+  //   email: newUser.email,
+  //   subject: "Welcome to Campus-Pulse!",
+  //   message: message,
+  // });
 
   // Generate JWT token and send response
   createSendToken(newUser, 201, res);
@@ -212,16 +212,16 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     // 3) Send it to user's email
     const resetURL = `${req.protocol}://${req.get(
       "host"
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    )}/api/users/resetPassword/${resetToken}`;
 
-    const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password please ignore this email!`;
-    await sendEmail({
-      email: user.email,
-      subject: "Your password reset token (valid for 10 mins)",
-      message: message,
-    });
+    // const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password please ignore this email!`;
+    // await sendEmail({
+    //   email: user.email,
+    //   subject: "Your password reset token (valid for 10 mins)",
+    //   message: message,
+    // });
 
-    // await new Email(user, resetURL).sendPasswordReset();
+    await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
       status: "success",

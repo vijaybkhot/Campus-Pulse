@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+// Sample event input:
+// {
+//   "title": "Tech Conference 2024",
+//   "description": "An event for tech enthusiasts to discuss the latest trends in technology.",
+//   "date": "2024-12-15T10:00:00.000Z",
+//   "location": "New York City, NY",
+//   "category": "tech",
+//   "maxAttendees": 200,
+//   "createdBy": "672ed687dcbcb3abc4fd0e40"
+// }
+
 // Destructure the Schema from mongoose
 const { Schema } = mongoose;
 

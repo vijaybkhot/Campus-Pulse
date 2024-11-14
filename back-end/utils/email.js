@@ -1,115 +1,76 @@
-import { createTransport } from "nodemailer";
-import { renderFile } from "pug";
-import { convert } from "html-to-text";
+import dotenv from "dotenv";
 
-// // An email class from which we can create email objects that we can then use to send actual emails
-// export default class Email {
-//   // To create a new email object, we pass in a user and a url
-//   constructor(user, url) {
-//     this.to = user.email;
-//     this.firstName = user.name.split(" ")[0];
-//     this.url = url;
-//     this.from = `Vijay Khot <${process.env.EMAIL_FROM}>`;
-//   }
+import sgMail from "@sendgrid/mail";
+import nodemailer from "nodemailer";
+import pug from "pug";
+import { htmlToText } from "html-to-text";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, "../config.env") });
 
-//   // Create different transports for different enviornments
-//   newTransport() {
-//     if (process.env.NODE_ENV === "production") {
-//       // Section 209 - Using Sendgrid for 'Real' Emails
-//       // Configure SendGrid SMTP
-//       return createTransport({
-//         service: "SendGrid",
-//         // host: 'smtp-relay.brevo.com', // Brevo's SMTP host
-//         host: "smtp.sendgrid.net", // SendGrid SMTP server,
-//         port: 587, // Typically, 587 is used for TLS connections
-//         auth: {
-//           user: process.env.SENDGRID_USERNAME, // Your SENDGRID username
-//           pass: process.env.SENDGRID_PASSWORD, // Your SENDGRID password
-//         },
-//         secure: false, // Use TLS if available
-//         tls: {
-//           rejectUnauthorized: false, // Do not reject unauthorized certificates
-//         },
-//       });
-//     }
+class Email {
+  constructor(user, url) {
+    this.to = user.email;
+    this.firstName = user.firstName;
+    this.url = url;
+    this.from = `${process.env.EMAIL_FROM}`;
+  }
 
-//     return createTransport({
-//       // service: 'Gmail',
-//       host: process.env.EMAIL_HOST,
-//       port: process.env.EMAIL_PORT,
-//       auth: {
-//         user: process.env.EMAIL_USERNAME,
-//         pass: process.env.EMAIL_PASSWORD,
-//       },
-//       // Activate in gmail "less secure app" option
-//     });
-//   }
+  newTransport() {
+    if (process.env.NODE_ENV === "production") {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      return {
+        sendMail: (mailOptions) =>
+          sgMail.send({ ...mailOptions, from: this.from }), // Using SendGrid's send
+      };
+    }
 
-//   // Send the actual email - takes in a template and a subject
-//   async send(template, subject) {
-//     try {
-//       //  1) Render HTML based on a pug template
-//       const html = renderFile(`${__dirname}/../views/email/${template}.pug`, {
-//         firstName: this.firstName,
-//         url: this.url,
-//         subject: subject,
-//       }); // We will be sending the email as an HTML. We use the pug module to build the html from a file
+    // Nodemailer transport for development
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+  }
 
-//       // 2) Define the email options
-//       const mailOptions = {
-//         from: this.from,
-//         to: this.to,
-//         subject: subject,
-//         html: html,
-//         text: convert(html), // Just an option if someone wants to send plain text. We convert the HTML to plain text
-//       };
+  async send(template, subject) {
+    try {
+      const html = pug.renderFile(
+        `${__dirname}/../views/email/${template}.pug`,
+        {
+          firstName: this.firstName,
+          url: this.url,
+          subject,
+        }
+      );
 
-//       // 3) Create a transport and send email
-//       await this.newTransport().sendMail(mailOptions); // sendMail(mailOptions) function is a method provided by the nodemailer library
-//       //  When we call nodemailer.createTransport() in our newTransport() method, it creates a transporter object. This transporter object has a method called sendMail(), which is used to send an email with the specified options.
-//     } catch (error) {
-//       console.error("Error sending email:", error);
-//     }
-//   }
+      const mailOptions = {
+        to: this.to,
+        subject,
+        html,
+        text: htmlToText(html),
+      };
 
-//   // We will not send email using the above send function, but, instead we will create one different function for each type of email we want to send
-//   // First send email function to send welcome email
-//   async sendWelcome() {
-//     await this.send("welcome", "Welcome to the NATOURS Family!"); // 'welcome' is a pug template
-//   }
+      await this.newTransport().sendMail(mailOptions);
+    } catch (error) {
+      console.error("Error sending email:", error.response.body);
+    }
+  }
 
-//   // Section - 208 - Sending password reset emails
-//   async sendPasswordReset() {
-//     await this.send(
-//       "passwordReset",
-//       "Your password reset token (valid for only 10 minutes)"
-//     ); // 'passwordReset' is a pug template
-//   }
-// }
+  async sendWelcome() {
+    await this.send("welcome", "Welcome to the Campus Pulse Family!");
+  }
 
-// -------------------------------------
-
-const sendEmail = async (options) => {
-  // 1) Create a transporter
-  const transporter = nodemailer.createTransport({
-    // service: 'Gmail',
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-    // Activate in gmail "less secure app" option
-  });
-  // 2) Define the email options
-  const mailOptions = {
-    from: "Vijay Khot <hello@vijay.io>",
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-  };
-  // 3) Actually send the email
-  await transporter.sendMail(mailOptions);
-};
-
-export default sendEmail;
+  async sendPasswordReset() {
+    await this.send(
+      "passwordReset",
+      "Your password reset token (valid for only 10 minutes)"
+    );
+  }
+}
+export default Email;
