@@ -4,6 +4,7 @@ import CustomNavbar from './components/CustomNavbar';
 import Home from './pages/Home'
 import FindRoommates from './pages/FindRoommates';
 import Events from './pages/Events';
+import ProfilePage from './pages/Profile';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
           <Route path="/findroommates" element={<FindRoommates />} />
+          <Route path='/profile' element={<ProfilePage />} />
         </Routes>
       </Router>
       {/* <Home /> */}
