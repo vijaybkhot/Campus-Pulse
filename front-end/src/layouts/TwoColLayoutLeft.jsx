@@ -5,10 +5,10 @@ const TwoColLayoutLeft = ({leftContent, centerContent, rightContent}) => {
     return (
         <Container>
             <Row>
-                <Col className='overflow-hidden text-truncate text-wrap sticky-col' md={3} >
+                <Col className='overflow-hidden text-truncate text-wrap sticky-col px-0' md={3} >
                     {leftContent}
                 </Col>
-                <Col className='overflow-hidden text-truncate text-wrap' md={9} style={{ backgroundColor: '#e9ecef' }}>
+                <Col className='overflow-hidden text-truncate text-wrap' md={9} style={{ backgroundColor: '' }}>
                     {centerContent}
                 </Col>
             </Row>

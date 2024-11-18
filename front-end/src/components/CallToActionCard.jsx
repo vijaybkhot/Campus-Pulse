@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CallToActionCard = ({textContent, buttonTxt, buttonUrl}) => {
     return (
@@ -8,14 +9,16 @@ const CallToActionCard = ({textContent, buttonTxt, buttonUrl}) => {
             <Card.Title>
               <h2>{textContent}</h2>
             </Card.Title>
-            <Button
-              variant="danger"
-              href={buttonUrl}
-              style={{ borderRadius: '15px', marginTop: '20px' }}
-              className="w-100 color-red-bg"
-            >
-              {buttonTxt}
-            </Button>
+            <Link to={buttonUrl}>
+                <Button
+                variant="danger"
+                href={buttonUrl}
+                style={{ borderRadius: '15px', marginTop: '20px' }}
+                className="w-100 color-red-bg"
+                >
+                {buttonTxt}
+                </Button>
+            </Link>
           </Card.Body>
         </Card>
       );
