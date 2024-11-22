@@ -1,17 +1,43 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-const { json } = bodyParser;
-import eventsRoutes from './back-end/routes/eventsRoutes.js';
+import { connect } from "mongoose";
+import dotenv from "dotenv";
+import app from "./app.js"; // Import app instead of listen
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Load environment variables
+dotenv.config({ path: "./config/config.env" });
 
-// Middleware
-app.use(json());
+// Handle uncaught exceptions
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION! Shutting Down...");
+  console.log(err.name, err.message);
+  process.exit(1);
+});
 
-// Routes
-app.use('/api', eventsRoutes);
+// Set up database connection
+const DB = process.env.DATABASE.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD
+);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+connect(DB)
+  .then(() => {
+    console.log("DB connection successful");
+  })
+  .catch((err) => {
+    console.error("DB connection error:", err);
+    process.exit(1); // Exit process if database connection fails
+  });
+
+// Start the server
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1); // Exit process after server is closed
+  });
 });

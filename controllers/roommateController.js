@@ -4,13 +4,13 @@ import catchAsync from "../utils/catchAsync.js";
 // Get all roommates with optional filters
 export const getAllRoommates = catchAsync(async (req, res) => {
   const filters = {};
-  // const { smoking, pets, dietaryPreferences, gender, location } = req.query;
+  const { smoking, pets, dietaryPreferences, gender, location } = req.query;
 
-  // if (smoking) filters.smoking = smoking === "true";
-  // if (pets) filters.pets = pets === "true";
-  // if (dietaryPreferences) filters.dietaryPreferences = dietaryPreferences;
-  // if (gender) filters.gender = gender;
-  // if (location) filters.location = location;
+  if (smoking) filters.smoking = smoking === "true";
+  if (pets) filters.pets = pets === "true";
+  if (dietaryPreferences) filters.dietaryPreferences = dietaryPreferences;
+  if (gender) filters.gender = gender;
+  if (location) filters.location = location;
 
   const roommates = await Roommate.find(filters);
 
