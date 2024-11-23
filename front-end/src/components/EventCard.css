@@ -1,0 +1,80 @@
+/* Container styles for the events page */
+.events-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-y: auto; /* Ensure scrolling for long content */
+    height: 80vh; /* Limit height for scrollbar demonstration */
+}
+
+.events-header {
+    color: #800000;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: left; /* Ensure left alignment */
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Reduce spacing between cards */
+}
+
+/* Card styles */
+.event-card {
+    display: flex;
+    position: relative; /* Enable absolute positioning for button */
+    align-items: flex-start; /* Align content vertically */
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-image {
+    width: 150px; /* Adjust size for consistency */
+    height: 150px;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-title {
+    font-size: 1.5rem; /* Increase font size for emphasis */
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold; /* Bold for emphasis */
+}
+
+.event-date {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.event-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.rsvp-button {
+    position: absolute; /* Fix button in the top-right */
+    top: 15px;
+    right: 15px;
+    background-color: #800000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rsvp-button:hover {
+    background-color: #a00000;
+}
