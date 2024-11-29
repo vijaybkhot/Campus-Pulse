@@ -13,32 +13,41 @@ const signToken = (id) =>
   });
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user._id);
-  // Cookie options. The secure should be set to true only in production mode
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-  // Setting secure:true in production
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-  // Sending token via cookie
-  res.cookie("jwt", token, cookieOptions);
+  try{
+    const token = signToken(user._id);
+    // Cookie options. The secure should be set to true only in production mode
+    const cookieOptions = {
+      expires: new Date(
+        Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    };
+    // Setting secure:true in production
+    if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+    // Sending token via cookie
+    res.cookie("jwt", token, cookieOptions);
 
-  // Remove/hide password from output
-  user.password = undefined;
+    // Remove/hide password from output
+    user.password = undefined;
 
-  // Send response
-  res.status(statusCode).json({
-    status: "success",
-    token,
-    data: { user },
-  });
+    // Send response
+    res.status(statusCode).json({
+      status: "success",
+      token,
+      data: { user },
+    });
+}catch(error){
+  console.log(error)
+  res.status(500).json({
+    status: "failed"
+  })
+}
 };
 
 export const signup = catchAsync(async (req, res, next) => {
   // Create a new user using the User schema with necessary fields
+  console.log(req.body)
+  try{
   const newUser = await User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName || "",
@@ -57,6 +66,10 @@ export const signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
+}catch(error){
+  console.log(error)
+}
+  console.log(newUser)
 
   // // Prepare the welcome message
   // const message = `Welcome to Our Community, ${newUser.firstName}!

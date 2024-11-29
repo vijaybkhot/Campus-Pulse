@@ -6,7 +6,8 @@ const AuthService = {
         return response.data
     },
     signup: async (userData) => {
-        const response = await api.post('/signup', userData)
+        console.log(userData)
+        const response = await api.post('/users/signup', JSON.stringify(userData))
         return response.data
     },
      

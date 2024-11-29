@@ -6,6 +6,7 @@ import FindRoommates from './pages/FindRoommates';
 import Events from './pages/Events';
 import ProfilePage from './pages/Profile';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <CustomNavbar />
         <Routes>
           <Route path="/login" element={<Login />} />;
+          <Route path='/signup' element={<Signup />} />
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
           <Route path="/findroommates" element={<FindRoommates />} />
