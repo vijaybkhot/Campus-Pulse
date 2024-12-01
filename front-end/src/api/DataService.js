@@ -4,7 +4,10 @@ import { setAuthToken } from './api.js'
 
 const DataService = {
     getUserProfile: async () => {
-        const response = await api.get('/user/profile')
+        const response = await api.get('users/me')
+        const token = localStorage.getItem('jwtToken'); 
+        setAuthToken(token)
+        console.log(response.data)
         return response.data
     },
     getAllPosts: async () => {
