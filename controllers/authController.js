@@ -13,7 +13,9 @@ const signToken = (id) =>
   });
 
 const createSendToken = (user, statusCode, res) => {
+  console.log(user)
   try{
+    console.log('In create send token')
     const token = signToken(user._id);
     // Cookie options. The secure should be set to true only in production mode
     const cookieOptions = {
@@ -22,10 +24,14 @@ const createSendToken = (user, statusCode, res) => {
       ),
       httpOnly: true,
     };
+
+    console.log('Set cookie options')
     // Setting secure:true in production
     if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
     // Sending token via cookie
     res.cookie("jwt", token, cookieOptions);
+
+    console.log('set the token')
 
     // Remove/hide password from output
     user.password = undefined;
@@ -46,6 +52,7 @@ const createSendToken = (user, statusCode, res) => {
 
 export const signup = catchAsync(async (req, res, next) => {
   // Create a new user using the User schema with necessary fields
+  console.log('Body')
   console.log(req.body)
   try{
   const newUser = await User.create({
@@ -66,10 +73,14 @@ export const signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
+  console.log(newUser)
+  createSendToken(newUser, 201, res);
+
 }catch(error){
   console.log(error)
 }
-  console.log(newUser)
+  // console.log(user)
+  // console.log(newUser)
 
   // // Prepare the welcome message
   // const message = `Welcome to Our Community, ${newUser.firstName}!
@@ -96,7 +107,6 @@ export const signup = catchAsync(async (req, res, next) => {
   // });
 
   // Generate JWT token and send response
-  createSendToken(newUser, 201, res);
 });
 
 export const login = catchAsync(async (req, res, next) => {

@@ -8,10 +8,15 @@ import ProfilePage from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { setAuthToken } from './api/api';
 
 function App() {
   // const [count, setCount] = useState(0)
-
+  const token = localStorage.getItem('jwtToken');
+  if (token) {
+      setAuthToken(token);
+  }
+  
   return (
     <>
       <Router>

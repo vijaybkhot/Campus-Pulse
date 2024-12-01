@@ -1,44 +1,9 @@
 import React from "react";
 import FeedCard from "./FeedCard";
 import { Container } from "react-bootstrap";
+import DataService from "../api/DataService";
 
-const sampleFeedData = [
-    {
-      profileImage: 'https://via.placeholder.com/50', // Placeholder image URL
-      username: 'John Doe',
-      handle: 'johndoe',
-      content: 'Exploring React and Bootstrap to build amazing UIs! #webdevelopment',
-      timestamp: '2h',
-    },
-    {
-      profileImage: 'https://via.placeholder.com/50',
-      username: 'Jane Smith',
-      handle: 'janesmith',
-      content: 'Just finished a marathon coding session. Time to take a break and grab some coffee ☕',
-      timestamp: '4h',
-    },
-    {
-      profileImage: 'https://via.placeholder.com/50',
-      username: 'Alex Johnson',
-      handle: 'alexj',
-      content: 'Learning new things every day keeps life interesting! What are you learning today?',
-      timestamp: '1d',
-    },
-    {
-      profileImage: 'https://via.placeholder.com/50',
-      username: 'Chris Lee',
-      handle: 'chrisl',
-      content: 'React Bootstrap makes UI development so much easier. Highly recommend it! 🚀',
-      timestamp: '3d',
-    },
-    {
-      profileImage: 'https://via.placeholder.com/50',
-      username: 'Sam Wilson',
-      handle: 'samwilson',
-      content: 'Finally finished my project! Feeling accomplished and ready for the next challenge!',
-      timestamp: '5d',
-    },
-  ];
+const sampleFeedData = await JSON.stringify(DataService.getAllPosts())
 
   const Feed = () => {
 

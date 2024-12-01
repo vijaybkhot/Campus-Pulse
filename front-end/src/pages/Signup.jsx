@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Card, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthService from '../api/AuthService.js';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +28,7 @@ const Signup = () => {
   });
 
   const [error, setError] = useState('');
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -53,8 +55,9 @@ const Signup = () => {
     try {
       setError(''); // Clear any previous errors
       const response = await AuthService.signup(formData);
-      alert('Signup successful!');
-      console.log('Response:', response);
+    //   alert('Signup successful!');
+    //   console.log('Response:', response);
+    navigate('/login')
     } catch (error) {
       console.error('Signup failed:', error);
       setError('Signup failed. Please try again.');

@@ -74,10 +74,10 @@ export function getOne(Model, popOptions) {
 export function getAll(Model, defaultSort = null) {
   return catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on TOUR (hack)
-    let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
-    if (req.params.userId) filter.user = req.params.userId;
-    console.log(filter);
+    // let filter = {};
+    // if (req.params.tourId) filter = { tour: req.params.tourId };
+    // if (req.params.userId) filter.user = req.params.userId;
+    // console.log(filter);
 
     // EXECUTE QUERY
     const features = new APIFeatures(Model.find(filter), req.query)
@@ -86,6 +86,7 @@ export function getAll(Model, defaultSort = null) {
       .limitFields()
       .paginate();
     const docs = await features.query;
+    console.log(docs)
 
     // Send Response
     res.status(200).json({
