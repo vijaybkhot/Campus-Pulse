@@ -64,7 +64,7 @@ newsFeedSchema.pre("save", function (next) {
 
 // Query middleware to automatically populate the author field with user email on find
 newsFeedSchema.pre(/^find/, function (next) {
-  this.populate("author", "email");
+  this.populate("author", "firstName lastName email");
   next();
 });
 
