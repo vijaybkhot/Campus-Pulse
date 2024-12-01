@@ -7,6 +7,17 @@ const api = axios.create({
     }
 })
 
+api.interceptors.request.use(
+    (config) => {
+      console.log('Request Object:', config); // Log the full request object
+      return config; // Proceed with the request
+    },
+    (error) => {
+      console.error('Request Error:', error); // Log any error before the request is sent
+      return Promise.reject(error);
+    }
+  );
+
 export const setAuthToken = (token) => {
     if(token){
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`
