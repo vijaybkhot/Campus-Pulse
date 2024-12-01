@@ -5,17 +5,18 @@ import * as authController from "../controllers/authController.js";
 
 const router = express.Router();
 
-// Protect all routes after this middleware
-router.use(authController.protect);
-
 // Define routes for news feed items
 router
   .route("/")
   .get(newsFeedController.getAllNewsFeedItems) // Get all news feed items
   .post(
+    authController.protect,
     authController.restrictTo("user", "admin"),
     newsFeedController.createNewsFeedItem
   ); // Create a new news feed item
+
+// Protect all routes after this middleware
+router.use(authController.protect);
 
 router
   .route("/:id")
