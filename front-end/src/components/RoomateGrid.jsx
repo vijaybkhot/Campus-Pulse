@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import RoommateCard from './RoommateCard';
+import DataService from '../api/DataService';
 
 const sampleRoommates = [
   {
@@ -70,6 +71,25 @@ const sampleRoommates = [
 ];
 
 const RoommateGrid = () => {
+
+  const [roomates, setRoomates] = useState(null)
+
+  useEffect(()=>{
+    const fetchProfiles = async () => {
+      try {
+          const response = await DataService.getAllRoomates();
+          setRoomates(response.data);
+      } catch (error) {
+          console.error('Failed to fetch profile:', error);
+      } 
+  };
+
+      fetchProfiles();
+  }, [])
+
+  
+  // const sampleRoommates = 
+
   return (
     <Container>
       <h4 className="my-4">56 Roommates Found!</h4>

@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { setAuthToken } from './api/api';
+import { hotjar } from 'react-hotjar';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -16,7 +17,8 @@ function App() {
   if (token) {
       setAuthToken(token);
   }
-  
+  hotjar.initialize({});
+  hotjar.identify('5226499', { userProperty: 'value' });
   return (
     <>
       <Router>

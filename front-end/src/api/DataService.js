@@ -19,7 +19,9 @@ const DataService = {
         return response.data
     },
     getAllRoomates: async () => {
-        const response = await api.get('/roomates/')
+        setAuthToken(token)
+        const response = await api.get('/dashboard')
+        console.log(response.data)
         return response.data
     }
 }

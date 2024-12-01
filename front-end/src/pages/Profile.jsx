@@ -1,19 +1,47 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ThreeColLayout from '../layouts/ThreeColLayout'; 
 import { Card, ListGroup, Image, Button } from 'react-bootstrap';
 import DataService from '../api/DataService';
 
-const ProfilePage = async () => {
-    const profile = await DataService.getUserProfile()
+const ProfilePage = () => {
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const response = await DataService.getUserProfile();
+            setProfile(response.data);
+        } catch (error) {
+            console.error('Failed to fetch profile:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+        fetchProfile();
+    }, []);
+
+    if (loading) {
+        return <p>Loading...</p>; // Display a loading state while fetching data
+    }
+
+    if (!profile) {
+        return <p>Error loading profile. Please try again later.</p>; // Handle the case where data is unavailable
+    }
+
+    console.log('Profile print - ')
+    console.log(profile)
+
+
     const leftContent = (
         <Card className="p-3">
             <Image src="https://via.placeholder.com/150" roundedCircle style={{ width: '100%', marginBottom: '15px' }} />
-            <h4>`${profile.firstName} ${profile.lastName}`</h4>
-            <p>Software Engineer, Tech Enthusiast</p>
+            <h4>{profile.firstName} {profile.lastName}</h4>
+            <p>{profile.educationMajor}</p>
             <ListGroup variant="flush">
-                <ListGroup.Item>Email: john.doe@example.com</ListGroup.Item>
-                <ListGroup.Item>Location: New York, USA</ListGroup.Item>
-                <ListGroup.Item>Joined: January 2022</ListGroup.Item>
+                <ListGroup.Item>Email: {profile.email}</ListGroup.Item>
+                <ListGroup.Item>Location: {profile.locationPreference}</ListGroup.Item>
             </ListGroup>
         </Card>
     );
@@ -35,8 +63,8 @@ const ProfilePage = async () => {
             <Button variant="secondary" className="w-100">Add to Contacts</Button>
             <hr />
             <h4>Contact Info</h4>
-            <p>Phone: +1 (555) 123-4567</p>
-            <p>LinkedIn: linkedin.com/in/johndoe</p>
+            <p>Phone: +1 {profile.phone}</p>
+            {/* <p>LinkedIn: linkedin.com/in/johndoe</p> */}
         </Card>
     );
 

@@ -15,7 +15,7 @@ console.log(sampleFeedData.data.data)
         </div>
         <Container>
             {sampleFeedData.data.data.map((feed, index)=>(
-                <FeedCard key={index} username={feed.author} handle={feed._id} content={feed.content} timestamp={feed.createdAt} />
+                <FeedCard key={index} username={feed.author.firstName} handle={feed._id} content={feed.content} timestamp={feed.createdAt} />
             ))}
         </Container>
         </>
