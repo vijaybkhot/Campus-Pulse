@@ -1,12 +1,14 @@
 import React from 'react';
 import ThreeColLayout from '../layouts/ThreeColLayout'; 
 import { Card, ListGroup, Image, Button } from 'react-bootstrap';
+import DataService from '../api/DataService';
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+    const profile = await DataService.getUserProfile()
     const leftContent = (
         <Card className="p-3">
             <Image src="https://via.placeholder.com/150" roundedCircle style={{ width: '100%', marginBottom: '15px' }} />
-            <h4>John Doe</h4>
+            <h4>`${profile.firstName} ${profile.lastName}`</h4>
             <p>Software Engineer, Tech Enthusiast</p>
             <ListGroup variant="flush">
                 <ListGroup.Item>Email: john.doe@example.com</ListGroup.Item>
