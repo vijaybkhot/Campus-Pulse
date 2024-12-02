@@ -1,12 +1,21 @@
-import React from "react"
-import TwoColLayoutLeft from "../layouts/TwoColLayoutLeft"
-import FilterRoomates from "../components/FilterRoomates"
-import RoommateGrid from "../components/RoomateGrid"
+import React, { useState } from "react";
+import TwoColLayoutLeft from "../layouts/TwoColLayoutLeft";
+import FilterRoommates from "../components/FilterRoomates";
+import RoommateGrid from "../components/RoomateGrid";
 
 const FindRoommates = () => {
-    return (
-        <TwoColLayoutLeft leftContent={<FilterRoomates />} centerContent={<RoommateGrid />}/>
-    )
-}
+  const [filters, setFilters] = useState({}); // State to track selected filters
 
-export default FindRoommates
+  const handleApplyFilters = (newFilters) => {
+    setFilters(newFilters); // Update filters when applied in FilterRoommates
+  };
+
+  return (
+    <TwoColLayoutLeft
+      leftContent={<FilterRoommates onApplyFilters={handleApplyFilters} />}
+      centerContent={<RoommateGrid filters={filters} />} // Pass filters to RoommateGrid
+    />
+  );
+};
+
+export default FindRoommates;
