@@ -19,7 +19,7 @@ const RoommateGrid = ({ filters }) => {
         setRoommates(fetchedRoommates); // Assuming response is an array of roommates
       } catch (err) {
         console.error("Failed to fetch profiles:", err);
-        setError("Failed to load roommates. Please try again.");
+        setError("Please Login or Signup To find roomates!");
       } finally {
         setLoading(false);
       }

@@ -27,7 +27,7 @@ const ProfilePage = () => {
     }
 
     if (!profile) {
-        return <p>Error loading profile. Please try again later.</p>; // Handle the case where data is unavailable
+        return <p><Link to='/login'>Login</Link> to see profile suggestions</p>; // Handle the case where data is unavailable
     }
 
     console.log('Profile print - ')
