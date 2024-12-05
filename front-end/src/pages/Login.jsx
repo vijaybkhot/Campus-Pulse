@@ -35,7 +35,8 @@ const Login = () => {
       setError('');
       const response = await AuthService.login(formData); // Call login API
       localStorage.setItem('jwtToken', response.token); // Store token in localStorage
-      navigate('/'); // Redirect to home page after successful login
+      // navigate('/'); // Redirect to home page after successful login
+      window.location.href = '/'
     } catch (error) {
       console.error('Login failed:', error);
       setError('Invalid email or password. Please try again.');

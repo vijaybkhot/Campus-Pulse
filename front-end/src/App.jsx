@@ -9,7 +9,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { setAuthToken } from './api/api';
-import { hotjar } from 'react-hotjar';
+// import { useLocation } from 'react-router-dom';
+// import { hotjar } from 'react-hotjar';
+import HotjarTracker from './Hotjar';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -17,20 +19,21 @@ function App() {
   if (token) {
       setAuthToken(token);
   }
-  hotjar.initialize({});
-  hotjar.identify('5226499', { userProperty: 'value' });
+
   return (
     <>
       <Router>
-      <CustomNavbar />
-        <Routes>
-          <Route path="/login" element={<Login />} />;
-          <Route path='/signup' element={<Signup />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/findroommates" element={<FindRoommates />} />
-          <Route path='/profile' element={<ProfilePage />} />
-        </Routes>
+        <HotjarTracker>
+          <CustomNavbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/findroommates" element={<FindRoommates />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
+        </HotjarTracker>
       </Router>
       {/* <Home /> */}
     </>
