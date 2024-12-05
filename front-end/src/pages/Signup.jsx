@@ -12,23 +12,17 @@ const Signup = () => {
     lastName: '',
     bio: '',
     dateOfBirth: '',
-    age: '',
-    gender: '',
-    countryOfOrigin: '',
     educationMajor: '',
-    smoking: false,
-    pets: false,
-    dietaryPreferences: '',
     locationPreference: '',
-    preferredRoommateGender: '',
-    photo: '',
-    role: 'user',
+    gender: '',
+    smoking: '',
+    dietaryPreferences: '',
     password: '',
     passwordConfirm: '',
   });
 
   const [error, setError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -41,7 +35,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for required fields
     if (!formData.dateOfBirth || !formData.locationPreference || !formData.educationMajor) {
       setError('Please fill out all required fields.');
       return;
@@ -53,14 +46,14 @@ const Signup = () => {
     }
 
     try {
-      setError(''); // Clear any previous errors
-      const response = await AuthService.signup(formData);
-    //   alert('Signup successful!');
-    //   console.log('Response:', response);
-    navigate('/login')
+      setError('');
+      await AuthService.signup(formData);
+      navigate('/login');
     } catch (error) {
+      // alert()
       console.error('Signup failed:', error);
       setError('Signup failed. Please try again.');
+      alert(error)
     }
   };
 
@@ -119,6 +112,17 @@ const Signup = () => {
               />
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="bio">
+              <Form.Label>Bio</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="bio"
+                placeholder="Tell us about yourself"
+                value={formData.bio}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="dateOfBirth">
               <Form.Label>Date of Birth</Form.Label>
               <Form.Control
@@ -152,6 +156,63 @@ const Signup = () => {
                 onChange={handleChange}
                 required
               />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="gender">
+              <Form.Label>Gender</Form.Label>
+              <div>
+                <Form.Check
+                  inline
+                  label="Male"
+                  name="gender"
+                  type="radio"
+                  value="male"
+                  checked={formData.gender === 'male'}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  inline
+                  label="Female"
+                  name="gender"
+                  type="radio"
+                  value="female"
+                  checked={formData.gender === 'female'}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  inline
+                  label="Non-Binary"
+                  name="gender"
+                  type="radio"
+                  value="non-binary"
+                  checked={formData.gender === 'non-binary'}
+                  onChange={handleChange}
+                />
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="smoking">
+              <Form.Label>Smoking Preference</Form.Label>
+              <div>
+                <Form.Check
+                  inline
+                  label="Yes"
+                  name="smoking"
+                  type="radio"
+                  value="true"
+                  checked={formData.smoking === 'true'}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  inline
+                  label="No"
+                  name="smoking"
+                  type="radio"
+                  value="false"
+                  checked={formData.smoking === 'false'}
+                  onChange={handleChange}
+                />
+              </div>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="password">
