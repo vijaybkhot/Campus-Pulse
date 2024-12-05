@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import RoommateCard from "./RoommateCard";
 import DataService from "../api/DataService";
+import defaultProfile from '../assets/profile_pic.png'
+
 
 const RoommateGrid = ({ filters }) => {
   const [roommates, setRoommates] = useState([]);
@@ -40,11 +42,7 @@ const RoommateGrid = ({ filters }) => {
         {roommates.map((roommate) => (
           <Col key={roommate._id} md={6} lg={6}>
             <RoommateCard
-              profileImage={
-                roommate.photo
-                  ? `/path/to/images/${roommate.photo}`
-                  : "https://via.placeholder.com/100"
-              }
+              profileImage={defaultProfile}
               name={`${roommate.firstName} ${roommate.lastName}`}
               age={roommate.age}
               gender={roommate.gender}
