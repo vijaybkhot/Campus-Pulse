@@ -33,6 +33,17 @@ const ProfilePage = () => {
     console.log('Profile print - ')
     console.log(profile)
 
+    const getRandomBio = () => {
+        const placeholderBios = [
+          "I am a passionate learner and always excited about new opportunities.",
+          "I enjoy exploring new technologies and collaborating with others.",
+          "A Masters student with a keen interest in programming and travel.",
+          "Lifelong learner with a love for coding and meaningful projects.",
+          "Tech enthusiast who loves reading, traveling, and making new friends.",
+        ];
+        return placeholderBios[Math.floor(Math.random() * placeholderBios.length)];
+      };
+
 
     const leftContent = (
         <Card className="p-3">
@@ -50,8 +61,7 @@ const ProfilePage = () => {
         <div className="p-3 mt-5">
             <h2>About Me</h2>
             <p className='mt-3'>
-                I am a Masters in Computer Science student with a passion for web development. I am from Delhi, India. I am an easy to go person. I enjoy
-                reading, learning new technologies, traveling, and collaborating with others to create something meaninful.
+            {profile.bio || getRandomBio()}
             </p>
         </div>
     );
