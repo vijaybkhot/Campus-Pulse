@@ -16,7 +16,7 @@ const ProfileListView = () => {
         setUsers(fetchedUsers.slice(0, 6)); // Limit to 6 users on the frontend
       } catch (err) {
         console.error("Failed to load user profiles:", err);
-        setError("Failed to load friends. Please try again.");
+        setError("Please Login or Signup to see friend suggestions");
       } finally {
         setLoading(false);
       }
