@@ -13,9 +13,9 @@ const signToken = (id) =>
   });
 
 const createSendToken = (user, statusCode, res) => {
-  console.log(user)
-  try{
-    console.log('In create send token')
+  console.log(user);
+  try {
+    console.log("In create send token");
     const token = signToken(user._id);
     // Cookie options. The secure should be set to true only in production mode
     const cookieOptions = {
@@ -25,13 +25,13 @@ const createSendToken = (user, statusCode, res) => {
       httpOnly: true,
     };
 
-    console.log('Set cookie options')
+    console.log("Set cookie options");
     // Setting secure:true in production
     if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
     // Sending token via cookie
     res.cookie("jwt", token, cookieOptions);
 
-    console.log('set the token')
+    console.log("set the token");
 
     // Remove/hide password from output
     user.password = undefined;
@@ -42,43 +42,53 @@ const createSendToken = (user, statusCode, res) => {
       token,
       data: { user },
     });
-}catch(error){
-  console.log(error)
-  res.status(500).json({
-    status: "failed"
-  })
-}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "failed",
+    });
+  }
 };
 
 export const signup = catchAsync(async (req, res, next) => {
   // Create a new user using the User schema with necessary fields
-  console.log('Body')
-  console.log(req.body)
-  try{
-  const newUser = await User.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName || "",
-    email: req.body.email,
-    phone: req.body.phone, // Default to empty string if not provided
-    bio: req.body.bio || "", // Default to empty string if not provided
-    locationPreference: req.body.locationPreference,
-    countryOfOrigin: req.body.countryOfOrigin || "unknown", // Default to "Unknown"
-    educationMajor: req.body.educationMajor,
-    smoking: req.body.smoking || false, // Default to false if not provided
-    pets: req.body.pets || false, // Default to false if not provided
-    dietaryPreferences: req.body.dietaryPreferences || "any", // Default to "Any"
-    preferredRoommateGender: req.body.preferredRoommateGender || "any", // Default to "any"
-    dateOfBirth: req.body.dateOfBirth,
-    gender: req.body.gender || "unknown", // Default to "other"
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-  });
-  console.log(newUser)
-  createSendToken(newUser, 201, res);
+  console.log("Body");
+  console.log(req.body);
+  try {
+    // Trim and lowercase all input fields
+    const sanitizedData = {
+      firstName: req.body.firstName.trim().toLowerCase(),
+      lastName: req.body.lastName ? req.body.lastName.trim().toLowerCase() : "",
+      email: req.body.email.trim().toLowerCase(),
+      phone: req.body.phone ? req.body.phone.trim().toLowerCase() : "",
+      bio: req.body.bio ? req.body.bio.trim().toLowerCase() : "",
+      locationPreference: req.body.locationPreference.trim().toLowerCase(),
+      countryOfOrigin: req.body.countryOfOrigin
+        ? req.body.countryOfOrigin.trim().toLowerCase()
+        : "unknown",
+      educationMajor: req.body.educationMajor.trim().toLowerCase(),
+      smoking: req.body.smoking || false,
+      pets: req.body.pets || false,
+      dietaryPreferences: req.body.dietaryPreferences
+        ? req.body.dietaryPreferences.trim().toLowerCase()
+        : "any",
+      preferredRoommateGender: req.body.preferredRoommateGender
+        ? req.body.preferredRoommateGender.trim().toLowerCase()
+        : "any",
+      dateOfBirth: req.body.dateOfBirth.trim().toLowerCase(),
+      gender: req.body.gender
+        ? req.body.gender.trim().toLowerCase()
+        : "unknown",
+      password: req.body.password.trim(),
+      passwordConfirm: req.body.passwordConfirm.trim(),
+    };
 
-}catch(error){
-  console.log(error)
-}
+    const newUser = await User.create(sanitizedData);
+    console.log(newUser);
+    createSendToken(newUser, 201, res);
+  } catch (error) {
+    console.log(error);
+  }
   // console.log(user)
   // console.log(newUser)
 

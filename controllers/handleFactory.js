@@ -71,13 +71,20 @@ export function getOne(Model, popOptions) {
 }
 
 //   }
+
+// Utility function to capitalize each word
+function capitalizeWords(str) {
+  if (typeof str !== "string") return str;
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export function getAll(Model, defaultSort = null) {
   return catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on TOUR (hack)
     let filter = {};
-    // if (req.params.tourId) filter = { tour: req.params.tourId };
-    // if (req.params.userId) filter.user = req.params.userId;
-    // console.log(filter);
 
     // EXECUTE QUERY
     const features = new APIFeatures(Model.find(filter), req.query)
@@ -85,8 +92,24 @@ export function getAll(Model, defaultSort = null) {
       .sort(defaultSort)
       .limitFields()
       .paginate();
-    const docs = await features.query;
-    console.log(docs)
+
+    let docs = await features.query;
+
+    // Capitalize the first letter of each word for relevant fields
+    docs = docs.map((doc) => {
+      const newDoc = { ...doc._doc };
+      for (let key in newDoc) {
+        if (
+          key !== "email" &&
+          key !== "bio" &&
+          isNaN(newDoc[key]) &&
+          typeof newDoc[key] === "string"
+        ) {
+          newDoc[key] = capitalizeWords(newDoc[key]);
+        }
+      }
+      return newDoc;
+    });
 
     // Send Response
     res.status(200).json({
