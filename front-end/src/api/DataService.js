@@ -29,7 +29,7 @@ const DataService = {
         return response.data.roommates;
       },
        // Fetch all events
-       getAllEvents: async () => {
+    getAllEvents: async () => {
         try {
             const token = localStorage.getItem('jwtToken');
             setAuthToken(token);
@@ -42,22 +42,36 @@ const DataService = {
             return []; // Return an empty array to avoid breaking the UI
         }
     },
-        
-    // Fetch event by ID
-    // Fetch event by ID
+
     getEventById: async (eventId) => {
         try {
             const token = localStorage.getItem('jwtToken');
             setAuthToken(token);
-
-            const response = await api.get(`/events/${eventId}`); // API endpoint to fetch an event by ID
-            /*console.log("Fetched Event:", response.data.event); // Debugging*/
-            return response.data.event; // Assuming API returns an `event` object
+    
+            const response = await api.get(`/events/${eventId}`);
+            console.log("API Response for Event:", response.data); // Debugging
+            return response.data.data; // Adjusted to match the nested structure
         } catch (error) {
-            /*console.error("Error fetching event by ID:", error.response || error.message);*/
-            return null; // Return null to avoid breaking the UI
+            console.error("Error fetching event by ID:", error.response || error.message);
+            return null; // Avoid breaking the UI
         }
-    }
+    },
+    getUserById: async (userId) => {
+        try {
+            const token = localStorage.getItem("jwtToken");
+            setAuthToken(token);
+            const response = await api.get(`/users/${userId}`);
+            return response.data.data; // Adjusted to your API's response structure
+        } catch (error) {
+            console.error("Error fetching user by ID:", error.response || error.message);
+            throw error;
+        }
+    },
+    
+    
+    
+    
+    
 }
     
 export default DataService

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import DataService from '../api/DataService';
 import '../components/EventCard.css';
@@ -6,7 +7,8 @@ import '../components/EventCard.css';
 const Events = () => {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
+    console.log("hiiii i am inb evetbs")
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -28,14 +30,19 @@ const Events = () => {
             <h2 className="events-header">Upcoming Events</h2>
             <div className="events-list">
                 {events.map((event) => (
-                    <EventCard
-                        key={event._id} // Use `_id` from the database
-                        image={'/assets/default_event.jpg'} // Replace with actual image logic if available
-                        title={event.title}
-                        date={new Date(event.date).toLocaleDateString()}
-                        venue={event.location}
-                        description={event.description}
-                    />
+                    <div
+                        key={event._id}
+                        className="event-card-wrapper"
+                        onClick={() => navigate(`/events/${event._id}`)}
+                    >
+                        <EventCard
+                            image={event.image || '/assets/default_event.jpg'}
+                            title={event.title}
+                            date={new Date(event.date).toLocaleDateString()}
+                            venue={event.location}
+                            description={event.description}
+                        />
+                    </div>
                 ))}
             </div>
         </div>

@@ -78,3 +78,41 @@
 .rsvp-button:hover {
     background-color: #a00000;
 }
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    margin: 10px;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.event-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.event-details {
+    padding: 15px;
+}
+
+.event-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.event-date,
+.event-description {
+    font-size: 14px;
+    color: #555;
+}

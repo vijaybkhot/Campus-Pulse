@@ -7,11 +7,16 @@ import Events from './pages/Events';
 import ProfilePage from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import EventDetails from './pages/EventDetails';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { setAuthToken } from './api/api';
+import UserProfile from './pages/UserProfile'; // Import the new UserProfile component
+
+
 // import { useLocation } from 'react-router-dom';
 // import { hotjar } from 'react-hotjar';
 import HotjarTracker from './Hotjar';
+
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -32,6 +37,8 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/findroommates" element={<FindRoommates />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:userId" element={<UserProfile />} />
+            <Route path="/events/:eventId" element={<EventDetails />} />
           </Routes>
         </HotjarTracker>
       </Router>

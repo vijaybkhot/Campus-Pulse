@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, Image } from "react-bootstrap";
-import defaultProfile from "../assets/profile_pic.png";
-import DataService from "../api/DataService"; // Assuming this is the service for API calls
+import { useNavigate } from "react-router-dom";
+import DataService from "../api/DataService";
 
 const ProfileListView = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
         setLoading(true);
-        const fetchedUsers = await DataService.getAllRoommates(); // Fetch all users
-        setUsers(fetchedUsers.slice(0, 6)); // Limit to 6 users on the frontend
+        const fetchedUsers = await DataService.getAllRoommates();
+        setUsers(fetchedUsers.slice(0, 6)); // Limit to 6 users
       } catch (err) {
         console.error("Failed to load user profiles:", err);
         setError("Please Login or Signup to see friend suggestions");
@@ -39,11 +40,16 @@ const ProfileListView = () => {
       </div>
       <ListGroup variant="flush">
         {users.map((user) => (
-          <ListGroup.Item key={user._id} className="d-flex align-items-center">
+          <ListGroup.Item
+            key={user._id}
+            className="d-flex align-items-center"
+            onClick={() => navigate(`/profile/${user._id}`)} // Navigate to user's profile
+            style={{ cursor: "pointer" }}
+          >
             <Image
-              src={defaultProfile}
+              src={user.photo ? user.photo : "https://via.placeholder.com/150"} // Use user's photo or placeholder
               roundedCircle
-              style={{ width: "60px", height: "60px", marginRight: "15px" }}
+              style={{ width: "60px", height: "60px", marginRight: "15px", objectFit: "cover" }}
             />
             <div>
               <div style={{ fontSize: "18px", fontWeight: "bold" }}>
