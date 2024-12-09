@@ -123,7 +123,10 @@ const userSchema = new Schema(
     },
     passwordConfirm: {
       type: String,
-      required: [true, "Please confirm your password"],
+      required: function () {
+        // Make passwordConfirm required only for registration
+        return this.isNew;
+      },
       validate: {
         validator: function (el) {
           return el === this.password;
@@ -138,6 +141,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: true,
       select: false,
+    },
+    loginCount: {
+      type: Number,
+      default: 0,
     },
   },
   {
