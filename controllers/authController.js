@@ -16,32 +16,50 @@ const createSendToken = (user, statusCode, res) => {
   console.log(user);
   try {
     console.log("In create send token");
-    const token = signToken(user._id);
-    // Cookie options. The secure should be set to true only in production mode
-    const cookieOptions = {
-      expires: new Date(
-        Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-      ),
-      httpOnly: true,
-    };
 
-    console.log("Set cookie options");
-    // Setting secure:true in production
-    if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-    // Sending token via cookie
-    res.cookie("jwt", token, cookieOptions);
+    // Increment the login count by 1
+    user.loginCount += 1;
 
-    console.log("set the token");
+    // Save the updated user with the incremented login count
+    user
+      .save()
+      .then(() => {
+        // Create the JWT token
+        const token = signToken(user._id);
 
-    // Remove/hide password from output
-    user.password = undefined;
+        // Cookie options. The secure should be set to true only in production mode
+        const cookieOptions = {
+          expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+          ),
+          httpOnly: true,
+        };
 
-    // Send response
-    res.status(statusCode).json({
-      status: "success",
-      token,
-      data: { user },
-    });
+        // Setting secure:true in production
+        if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+
+        // Sending token via cookie
+        res.cookie("jwt", token, cookieOptions);
+
+        console.log("set the token");
+
+        // Remove/hide password from output
+        user.password = undefined;
+
+        // Send response with the updated login count
+        res.status(statusCode).json({
+          status: "success",
+          token,
+          data: { user, loginCount: user.loginCount }, // Include login count in the response
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json({
+          status: "failed",
+          message: "Error saving login count",
+        });
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -133,6 +151,7 @@ export const login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
+
   // 3) If everything is ok, send token to client
   createSendToken(user, 200, res);
 });

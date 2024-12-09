@@ -139,6 +139,10 @@ const userSchema = new Schema(
       default: true,
       select: false,
     },
+    loginCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
