@@ -6,7 +6,7 @@ const HotjarTracker = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    hotjar.initialize({id:5226499, sv:6});
+    hotjar.initialize({id:5233673, sv:6});
   }, []);
 
   useEffect(() => {
