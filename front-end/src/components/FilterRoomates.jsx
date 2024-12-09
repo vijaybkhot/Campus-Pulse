@@ -47,16 +47,26 @@ const FilterRoommates = ({ onApplyFilters }) => {
       <Form.Group className="mb-4">
         <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Gender Preference</Form.Label>
         <div>
-          <Form.Check type="checkbox" label="male" onChange={() => handleCheckboxChange("gender", "male")} />
-          <Form.Check type="checkbox" label="female" onChange={() => handleCheckboxChange("gender", "female")} />
+        <label htmlFor="radio-male" className="visually-hidden">Male </label>
+          <Form.Check type="checkbox" id="radio-male" label="male" onChange={() => handleCheckboxChange("gender", "male")} />
+          <label htmlFor="radio-female" className="visually-hidden">Female </label>
+
+          <Form.Check type="checkbox" id="radio-female" label="female" onChange={() => handleCheckboxChange("gender", "female")} />
+          
+
+          <label htmlFor="radio-nb" className="visually-hidden">Non Binary </label>
+
           <Form.Check
             type="checkbox"
+            id="radio-nb"
             label="non-binary"
             onChange={() => handleCheckboxChange("gender", "non-binary")}
           />
+          <label htmlFor="radio-np" className="visually-hidden">Prefer Not To Say </label>
           <Form.Check
             type="checkbox"
             label="prefer not to say"
+            id="radio-np"
             onChange={() => handleCheckboxChange("gender", "prefer not to say")}
           />
         </div>
@@ -78,17 +88,21 @@ const FilterRoommates = ({ onApplyFilters }) => {
       <Form.Group className="mb-4">
         <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Smoking</Form.Label>
         <div className="d-flex align-items-center">
+        <label htmlFor="radio-smoking-false" className="visually-hidden">False </label>
           <Form.Check
             type="radio"
             label="false" // Matches the database field
             name="smoking"
             className="me-2"
+            id="radio-smoking-false"
             onChange={() => handleRadioChange("smoking", "false")}
           />
+          <label htmlFor="radio-smoking-true" className="visually-hidden">True </label>
           <Form.Check
             type="radio"
             label="true" // Matches the database field
             name="smoking"
+            id="radio-smoking-true"
             onChange={() => handleRadioChange("smoking", "true")}
           />
         </div>
@@ -98,24 +112,32 @@ const FilterRoommates = ({ onApplyFilters }) => {
       <Form.Group className="mb-4">
         <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Food Preference</Form.Label>
         <div>
+        {/* <label htmlFor="radio-any" className="visually-hidden">Any </label> */}
           <Form.Check
             type="checkbox"
             label="any"
+            id="radio-any"
             onChange={() => handleCheckboxChange("foodPreferences", "any")}
           />
+          {/* <label htmlFor="radio-veg" className="visually-hidden">Veg </label> */}
           <Form.Check
             type="checkbox"
             label="Vegetarian"
+            id="radio-veg"
             onChange={() => handleCheckboxChange("foodPreferences", "Vegetarian")}
           />
+          {/* <label htmlFor="radio-nv" className="visually-hidden">Non Veg </label> */}
           <Form.Check
             type="checkbox"
             label="Non-Veg"
+            id="radio-nv"
             onChange={() => handleCheckboxChange("foodPreferences", "Non-Veg")}
           />
+          {/* <label htmlFor="radio-vegan" className="visually-hidden">Vegan </label> */}
           <Form.Check
             type="checkbox"
             label="Vegan"
+            id="radio-vegan"
             onChange={() => handleCheckboxChange("foodPreferences", "Vegan")}
           />
         </div>

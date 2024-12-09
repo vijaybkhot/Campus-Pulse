@@ -64,24 +64,28 @@ const CustomNavbar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+          <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Home
           </NavLink>
-          <NavLink to="/findroommates" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+          <NavLink to="/findroommates" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Find Roommates
           </NavLink>
-          <NavLink to="/events" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+          <NavLink to="/events" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Events
           </NavLink>
-          <NavLink to="/profile" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+          <NavLink to="/profile" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Profile
           </NavLink>
         </Nav>
         <Form className="d-flex w-50 mx-auto">
+        <label htmlFor="search-input" className="visually-hidden">
+        Search
+      </label>
           <FormControl
             type="text"
             placeholder="Search"
             className="mr-sm-2"
+            id="search-input"
             style={{ width: "100%", borderRadius: "50px" }}
           />
         </Form>
@@ -92,15 +96,16 @@ const CustomNavbar = () => {
                 src={userProfileImage} // Dynamically display user's avatar
                 roundedCircle
                 style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                alt="user's profile photo"
               />
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item as={NavLink} to="/profile">
                 View Profile
               </Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/settings">
+              {/* <Dropdown.Item as={NavLink} to="/settings">
                 Settings
-              </Dropdown.Item>
+              </Dropdown.Item> */}
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>

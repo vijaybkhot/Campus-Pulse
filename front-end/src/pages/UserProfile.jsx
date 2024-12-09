@@ -41,6 +41,7 @@ const UserProfile = () => {
       <Image
         src={user.photo || defaultProfile}
         roundedCircle
+        alt={user.photo ? `${user.firstName} ${user.lastName}'s profile picture` : "Default profile picture"}
         style={{
           width: "150px",
           height: "150px",

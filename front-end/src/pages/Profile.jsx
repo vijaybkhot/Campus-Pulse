@@ -48,6 +48,7 @@ const ProfilePage = () => {
             <Image 
                 src={profile.photo || "https://via.placeholder.com/150"} // Display profile.photo or fallback placeholder
                 roundedCircle 
+                alt={profile.photo ? `${profile.firstName} ${profile.lastName}'s profile picture` : "Default profile picture"}
                 style={{ width: '120px', height: '120px', objectFit: 'cover', margin: '0 auto 15px' }} // Resize and center the image
             />
             <h4>{profile.firstName} {profile.lastName}</h4>
