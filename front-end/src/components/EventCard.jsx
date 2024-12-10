@@ -6,7 +6,7 @@ const EventCard = ({ image, title, date, venue, description }) => {
         <div className="event-card">
             <img 
                 src={image} 
-                alt={title || 'Event Image'} 
+                alt="" 
                 className="event-image" 
             />
             <div className="event-details">

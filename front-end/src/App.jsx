@@ -28,6 +28,7 @@ function App() {
   return (
     <>
       <Router>
+        <h1 style={{display: 'none'}}>Campus Pulse</h1>
         <HotjarTracker>
           <CustomNavbar />
           <Routes>

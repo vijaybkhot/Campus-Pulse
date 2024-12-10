@@ -49,7 +49,7 @@ const UserProfile = () => {
           marginBottom: "15px",
         }}
       />
-      <h4>{user.firstName} {user.lastName || ""}</h4>
+      <p><b>{user.firstName} {user.lastName || ""}</b></p>
       <p>{user.educationMajor || "Major: N/A"}</p>
       <ListGroup variant="flush">
         <ListGroup.Item>Email: {user.email || "N/A"}</ListGroup.Item>
@@ -79,7 +79,7 @@ const UserProfile = () => {
   // Right Content
   const rightContent = (
     <Card className="p-3">
-      <h4>Quick Actions</h4>
+      <h3>Quick Actions</h3>
       <Button variant="primary" className="w-100 mb-2">Send Message</Button>
       <Button variant="secondary" className="w-100">Add to Contacts</Button>
       <hr />

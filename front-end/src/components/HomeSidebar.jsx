@@ -8,7 +8,7 @@ const HomeSidebar = () =>  {
         <Container>
 
             <div className="mt-5">
-                <h3 className="color-red">Your Next Steps</h3>
+                <h2 className="color-red">Your Next Steps</h2>
             </div>
             <Row className="my-4">
                 <CallToActionCard textContent='Find a Roommate' buttonTxt='Go' buttonUrl='/findroommates' />

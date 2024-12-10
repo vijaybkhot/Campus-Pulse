@@ -12,7 +12,6 @@ const CallToActionCard = ({textContent, buttonTxt, buttonUrl}) => {
             <Link to={buttonUrl}>
                 <Button
                 variant="danger"
-                href={buttonUrl}
                 style={{ borderRadius: '15px', marginTop: '20px' }}
                 className="w-100 color-red-bg"
                 >

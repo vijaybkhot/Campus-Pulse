@@ -50,7 +50,7 @@ const ProfileListView = () => {
               src={user.photo ? user.photo : "https://via.placeholder.com/150"} // Use user's photo or placeholder
               roundedCircle
               style={{ width: "60px", height: "60px", marginRight: "15px", objectFit: "cover" }}
-              alt={`${user.firstName} ${user.lastName} image`}
+              alt=""
             />
             <div>
               <div style={{ fontSize: "18px", fontWeight: "bold" }}>
