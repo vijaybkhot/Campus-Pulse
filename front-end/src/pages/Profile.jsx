@@ -73,10 +73,10 @@ const ProfilePage = () => {
 
     const rightContent = (
         <Card className="p-3">
-            <h4>Quick Actions</h4>
+            {/* <h4>Quick Actions</h4>
             <Button variant="primary" className="w-100 mb-2">Send Message</Button>
             <Button variant="secondary" className="w-100">Add to Contacts</Button>
-            <hr />
+            <hr /> */}
             <h4>Contact Info</h4>
             <p>Phone: +1 {profile.phone}</p>
         </Card>

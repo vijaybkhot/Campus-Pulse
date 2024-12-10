@@ -29,7 +29,7 @@ router.patch(
 router.delete("/deleteMe/", userController.deleteMe);
 
 // Middleware to restrict the following methods to admins only
-router.use(authController.restrictTo("admin"));
+router.use(authController.restrictTo("admin", "user"));
 
 router
   .route("/")
