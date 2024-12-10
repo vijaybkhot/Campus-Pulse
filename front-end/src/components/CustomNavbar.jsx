@@ -3,6 +3,8 @@ import { Navbar, Form, FormControl, Image, Dropdown, Button, Row, Col, Nav } fro
 import StevensLogo from "../assets/stevens_logo.jpeg";
 import { useNavigate, NavLink } from "react-router-dom";
 import DataService from "../api/DataService";
+import './CustomNavbar.css';
+
 
 const CustomNavbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem("jwtToken")));
@@ -64,9 +66,9 @@ const CustomNavbar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
+          {/* <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Home
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/findroommates" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} style={{ fontSize: 20 }}>
             Find Roommates
           </NavLink>

@@ -11,7 +11,7 @@ const HomeSidebar = () =>  {
                 <h3 className="color-red">Your Next Steps</h3>
             </div>
             <Row className="my-4">
-                <CallToActionCard textContent='Find a Roomate' buttonTxt='Go' buttonUrl='/findroommates' />
+                <CallToActionCard textContent='Find a Roommate' buttonTxt='Go' buttonUrl='/findroommates' />
             </Row>
             <Row className="my-4">
                 <CallToActionCard textContent='Discover New Events' buttonTxt='View' buttonUrl='/events' />
