@@ -61,8 +61,10 @@ const DataService = {
             const token = localStorage.getItem("jwtToken");
             setAuthToken(token);
             const response = await api.get(`/users/${userId}`);
+            console.log(response)
             return response.data.data; // Adjusted to your API's response structure
         } catch (error) {
+            console.log(error)
             console.error("Error fetching user by ID:", error.response || error.message);
             throw error;
         }

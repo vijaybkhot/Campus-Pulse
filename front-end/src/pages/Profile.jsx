@@ -13,6 +13,7 @@ const ProfilePage = () => {
                 const response = await DataService.getUserProfile();
                 setProfile(response.data); // Fetch and set the profile data
             } catch (error) {
+                console.log(error)
                 console.error('Failed to fetch profile:', error);
             } finally {
                 setLoading(false);
