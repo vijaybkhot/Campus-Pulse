@@ -51,7 +51,9 @@ const RoommateGrid = ({ filters }) => {
 
   return (
     <Container>
-      <h4 className="my-4">{roommates.length} Roommates Found!</h4>
+      <p className="my-4" style={{ fontSize: "1rem", fontWeight: "bold" }}>
+  {roommates.length} Roommates Found!
+</p>
       <Row>
         {roommates.map((roommate) => (
           <Col key={roommate._id} md={6} lg={6}>

@@ -52,7 +52,9 @@ const ProfilePage = () => {
                 alt={profile.photo ? `${profile.firstName} ${profile.lastName}'s profile picture` : "Default profile picture"}
                 style={{ width: '120px', height: '120px', objectFit: 'cover', margin: '0 auto 15px' }} // Resize and center the image
             />
-            <h4>{profile.firstName} {profile.lastName}</h4>
+            <p style={{ fontSize: "1.3rem", fontWeight: "bold", margin: 0 }}>
+                {profile.firstName} {profile.lastName}
+            </p>
             <p>{profile.educationMajor}</p>
             <ListGroup variant="flush">
                 <ListGroup.Item>Email: {profile.email}</ListGroup.Item>

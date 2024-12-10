@@ -45,7 +45,7 @@ const FilterRoommates = ({ onApplyFilters }) => {
     <div className="p-3 pt-5" style={{ backgroundColor: "#f2f2f2", height: "100vh" }}>
       {/* Gender Preference */}
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Gender Preference</Form.Label>
+        <p style={{ fontWeight: "bold", color: "#8B0000" }}>Gender Preference</p>
         <div>
         {/* <label htmlFor="radio-male" className="visually-hidden">Male </label> */}
           <Form.Check type="checkbox" id="radio-male" label="male" onChange={() => handleCheckboxChange("gender", "male")} />
@@ -74,9 +74,12 @@ const FilterRoommates = ({ onApplyFilters }) => {
 
       {/* Education */}
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Education</Form.Label>
-        <Form.Select onChange={(e) => handleSelectChange("education", e.target.value)}>
-          <option value="">Select</option>
+        {/* <p style={{ fontWeight: "bold", color: "#8B0000" }}>Education</p> */}
+        <Form.Label htmlFor="education-select" style={{ fontWeight: "bold", color: "#8B0000" }}>
+    Education
+  </Form.Label>
+        <Form.Select id="education-select"  defaultValue="" onChange={(e) => handleSelectChange("education", e.target.value)}>
+          <option value="" disabled>Please select your education level</option>
           <option value="Masters - Computer Science">Masters - Computer Science</option>
           <option value="Bachelors - Engineering">Bachelors - Engineering</option>
           <option value="PhD - Data Science">PhD - Data Science</option>
@@ -86,7 +89,9 @@ const FilterRoommates = ({ onApplyFilters }) => {
 
       {/* Smoking */}
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Smoking</Form.Label>
+      <fieldset>
+      <legend style={{ fontWeight: "bold", color: "#8B0000" }}>Smoking</legend>
+        {/* <p style={{ fontWeight: "bold", color: "#8B0000" }}>Smoking</p> */}
         <div className="d-flex align-items-center">
         {/* <label htmlFor="radio-smoking-false" className="visually-hidden">False </label> */}
           <Form.Check
@@ -106,11 +111,12 @@ const FilterRoommates = ({ onApplyFilters }) => {
             onChange={() => handleRadioChange("smoking", "true")}
           />
         </div>
+        </fieldset>
       </Form.Group>
 
       {/* Food Preferences */}
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Food Preference</Form.Label>
+        <p style={{ fontWeight: "bold", color: "#8B0000" }}>Food Preference</p>
         <div>
         {/* <label htmlFor="radio-any" className="visually-hidden">Any </label> */}
           <Form.Check
@@ -145,7 +151,7 @@ const FilterRoommates = ({ onApplyFilters }) => {
 
       {/* Country of Origin */}
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontWeight: "bold", color: "#8B0000" }}>Country of Origin</Form.Label>
+        <p style={{ fontWeight: "bold", color: "#8B0000" }}>Country of Origin</p>
         <Form.Select onChange={(e) => handleSelectChange("country", e.target.value)}>
           <option value="">Select</option>
           <option value="Flexible">Flexible</option>
