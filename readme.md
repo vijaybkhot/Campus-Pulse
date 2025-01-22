@@ -12,9 +12,6 @@ Campus Pulse is a web-based application designed to enhance university student e
 - **[User Feedback Video](https://youtu.be/tahAq-TR6JQ)**: See real user feedback on the app and how it influenced design improvements.
 - **[User Feedback Video - 2](https://youtube.com/shorts/D7MPXf43S7s)**: See another real user feedback on the app and how it influenced design improvements.
 
-
-https://stevens0-my.sharepoint.com/:p:/g/personal/vkhot_stevens_edu/Ee8a3BqZNVRMo26QzsUXuTIB84e9fA35TU7UhD6qBphA6Q?e=QCTiPP
-
 ---
 
 ## 📖 Table of Contents
