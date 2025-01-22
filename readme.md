@@ -9,7 +9,7 @@ Campus Pulse is a web-based application designed to enhance university student e
 - **[Project Demo Video](https://youtu.be/wx5Owg7nqF0)**: Watch the full demo of Campus Pulse showcasing its features.
 - **[Presentation Video](https://youtu.be/whcI4JllTRQ)**: View the team presentation discussing the design process and implementation.
 - **[User Feedback Video](https://youtu.be/tahAq-TR6JQ)**: See real user feedback on the app and how it influenced design improvements.
-- - **[User Feedback Video - 2](https://youtube.com/shorts/D7MPXf43S7s)**: See another real user feedback on the app and how it influenced design improvements.
+- **[User Feedback Video - 2](https://youtube.com/shorts/D7MPXf43S7s)**: See another real user feedback on the app and how it influenced design improvements.
 
 ---
 
